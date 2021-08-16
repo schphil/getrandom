@@ -8,14 +8,16 @@
 
 //! Implementation for ESP-IDF (ESP32, ESP8266)
 
+use crate::{Error};
+
 pub fn getrandom_inner(dest: &mut [u8]) -> Result<(), Error> {
     extern "C" {
         fn esp_fill_random(buf: *mut libc::c_void, len: libc::size_t) -> libc::c_void;
     }
 
     unsafe {
-        esp_fill_random(dest.as_mut_ptr() as *mut libc::c_void, buf.len());
+        esp_fill_random(dest.as_mut_ptr() as *mut libc::c_void, dest.len());
     }
 
-    OK(()) // TODO: Return false if ESP32's WiFi or Bluetooth is not initialized
+    Ok(()) // TODO: Return false if ESP32's WiFi or Bluetooth is not initialized
 }
