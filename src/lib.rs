@@ -249,6 +249,8 @@ cfg_if! {
                   target_env = "sgx",
               )))] {
         #[path = "rdrand.rs"] mod imp;
+    } else if #[cfg(all(target_arch = "xtensa"))] {
+        #[path = "espidf.rs"] mod imp;
     } else if #[cfg(all(target_arch = "wasm32", target_os = "unknown"))] {
         cfg_if! {
             if #[cfg(feature = "wasm-bindgen")] {
