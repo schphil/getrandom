@@ -213,6 +213,8 @@ cfg_if! {
     } else if #[cfg(all(feature = "js",
                         target_arch = "wasm32", target_os = "unknown"))] {
         #[path = "js.rs"] mod imp;
+    } else if #[cfg(all(target_arch = "xtensa"))] {
+        #[path = "espidf.rs"] mod imp;
     } else if #[cfg(feature = "custom")] {
         use custom as imp;
     } else if #[cfg(all(target_arch = "wasm32", target_os = "unknown"))] {
